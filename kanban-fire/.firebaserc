@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "event-management-project-15e4f": {
+      "hosting": {
+        "kanban-fire": [
+          "event-management-project-15e4f"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "event-management-project-15e4f"
+  }
+}
