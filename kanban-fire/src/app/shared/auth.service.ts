@@ -1,40 +1,43 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth}  from '@angular/fire/compat/auth';
-import { Router } from '@angular/router';
+import {
+  Auth,
+  signInWithEmailAndPassword,
+  authState,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  UserInfo,
+  UserCredential,
+} from '@angular/fire/auth';
+import { concatMap, from, Observable, of, switchMap } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
+  currentUser$ = authState(this.auth);
 
-  constructor(private fireAuth : AngularFireAuth, private router : Router) { }
+  constructor(private auth: Auth) {}
 
-  login(email: string, password: string) {
-    this.fireAuth.signInWithEmailAndPassword(email, password).then( () => {
-      localStorage.setItem('token','true');
-      this.router.navigate(['/dashboard']);
-    }, err => {
-      alert(err.message);
-      this.router.navigate(['/login']);
-    })
+  register(email: string, password: string): Observable<UserCredential> {
+    return from(createUserWithEmailAndPassword(this.auth, email, password));
   }
 
-  register(email: string, password: string) {
-    this.fireAuth.createUserWithEmailAndPassword(email, password).then( () => {
-      alert('Rejestracja powiodła się');
-      this.router.navigate(['/login']);
-    }, err => {
-      alert(err.message);
-      this.router.navigate(['/register']);
-    })
+  login(email: string, password: string): Observable<any> {
+    return from(signInWithEmailAndPassword(this.auth, email, password));
   }
 
-  logout() {
-    this.fireAuth.signOut().then( () => {
-      localStorage.removeItem('token');
-      this.router.navigate(['/login']);
-    }, err => {
-      alert(err.message)
-    })
+  // updateProfile(profileData: Partial<UserInfo>): Observable<any> {
+  //   const user = this.auth.currentUser;
+  //   return of(user).pipe(
+  //     concatMap((user) => {
+  //       if (!user) throw new Error('Not authenticated');
+
+  //       return updateProfile(user, profileData);
+  //     })
+  //   );
+  // }
+
+  logout(): Observable<any> {
+    return from(this.auth.signOut());
   }
 }

@@ -1,4 +1,49 @@
 /* You can add global styles to this file, and also import other style files */
-
-html, body { height: 100%; }
+@import './src/assets/variable/variable';
+html, body { height: 100%; background-color: $blue-grey;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.form-container {
+  display: block;
+  max-width: 400px;
+  margin: auto;
+  background: $blue-grey;
+  padding: 48px;
+  border-radius: 16px;
+  text-align: center;
+
+}
+.center {
+  display: flex;
+  justify-content: center;
+}
+.margin-top {
+  margin-top: 16px;
+}
+.text-center {
+  text-align: center;
+}
+.form-container mat-form-field {
+  width: 100%
+}
+.mat-form-field-label {
+  color: $white !important;
+}
+.mat-form-field-underline {
+  background-color: $white !important;
+}
+.mat-input-element {
+  color: $white !important;
+  background-color: $blue-grey !important;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    color: $white;
+}
+input:-webkit-autofill{
+  -webkit-text-fill-color: $white !important;
+}

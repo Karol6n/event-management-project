@@ -1,0 +1,27 @@
+<div class="form-container mat-elevation-z5">
+  <h1>Zaloguj się</h1>
+  <form [formGroup]="user" (ngSubmit)="submit()">
+    <mat-form-field>
+      <input matInput placeholder="Adres e-mail" formControlName="email" />
+      <mat-error *ngIf="email?.errors?.['required']">
+        Adres e-mail jest wymagany!
+      </mat-error>
+      <mat-error *ngIf="email?.errors?.['email']">
+        Wprowadź poprawny adres e-mail
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Hasło" formControlName="password" [type]="hide ? 'password' : 'text'"/>
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-error *ngIf="password?.errors?.['required']">
+        Hasło jest wymagane!
+       </mat-error>
+    </mat-form-field>
+    <div class="center">
+      <button mat-raised-button color="primary" type="submit">
+        Zaloguj się
+      </button>
+    </div>
+    <span>Nie masz jeszcze konta?  <a [routerLink]="['/register']" >Zarejestruj się!</a></span>
+  </form>
+</div>
