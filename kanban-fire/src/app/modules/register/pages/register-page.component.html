@@ -1,0 +1,58 @@
+<div class="form-container mat-elevation-z5">
+  <h1>Zarejestruj się</h1>
+  <form [formGroup]="newUser" (ngSubmit)="submit()">
+    <mat-form-field>
+      <input matInput placeholder="Imię" formControlName="name" />
+      <mat-error *ngIf="name?.errors?.['required']">
+        Imię jest wymagane
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Nazwisko" formControlName="surname" />
+      <mat-error *ngIf="surname?.errors?.['required']">
+        Nazwisko jest wymagane
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Adres e-mail" formControlName="email" />
+      <mat-error *ngIf="email?.errors?.['required']">
+        Adres e-mail jest wymagany!
+      </mat-error>
+      <mat-error *ngIf="email?.errors?.['email']">
+        Wprowadź poprawny adres e-mail
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+      matInput
+      placeholder="Hasło"
+      formControlName="password"
+      [type]="hide ? 'password' : 'text'"
+      />
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-error *ngIf="password?.errors?.['required']">
+        Hasło jest wymagane!
+       </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="password"
+        placeholder="Powtórz Hasło"
+        formControlName="confirmPassword"
+      />
+      <mat-error *ngIf="confirmPassword?.errors?.['required']">
+        Powtórzenie hasła jest wymagane!
+      </mat-error>
+    </mat-form-field>
+    <mat-error *ngIf="newUser.errors?.['passwordsDontMatch']">
+        Hasła nie pasują do siebie
+    </mat-error>
+    <div class="center">
+      <button class="submit-button" mat-raised-button color="primary" type="submit">
+        Zarejestruj się
+      </button>
+    </div>
+    <span>Posiadasz już konto?  <a [routerLink]="['/login']" >Zaloguj się!</a></span>
+  </form>
+</div>

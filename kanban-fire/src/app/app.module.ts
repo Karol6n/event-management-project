@@ -10,7 +10,7 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { LoginComponent } from './modules/login/pages/login-page.component';
-import { RegisterComponent } from './modules/register/register.component';
+import { RegisterComponent } from './modules/register/pages/register-page.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

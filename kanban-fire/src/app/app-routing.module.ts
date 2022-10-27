@@ -4,25 +4,37 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { LandingComponent } from './modules/landing/landing.component';
 import { LoginComponent } from './modules/login/pages/login-page.component';
-import { RegisterComponent } from './modules/register/register.component';
+import { RegisterComponent } from './modules/register/pages/register-page.component';
+import {
+  canActivate,
+  redirectLoggedInTo,
+  redirectUnauthorizedTo,
+} from '@angular/fire/auth-guard';
+
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
+const redirectLoggedInToDashboard = () => redirectLoggedInTo(['dashboard']);
+
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: LandingComponent
+    component: LandingComponent,
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    ...canActivate(redirectLoggedInToDashboard),
   },
   {
     path: 'dashboard',
-    component: DashboardComponent
+    component: DashboardComponent,
+    ...canActivate(redirectUnauthorizedToLogin),
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
+    ...canActivate(redirectLoggedInToDashboard),
   }
 ];
 
