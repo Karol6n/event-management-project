@@ -18,7 +18,7 @@ export class AuthService {
 
   constructor(private auth: Auth) {}
 
-  register(name: string, surname: string, email: string, password: string): Observable<UserCredential> {
+  register(firstName: string, lastName: string, email: string, password: string): Observable<UserCredential> {
     return from(createUserWithEmailAndPassword(this.auth, email, password))
   }
 

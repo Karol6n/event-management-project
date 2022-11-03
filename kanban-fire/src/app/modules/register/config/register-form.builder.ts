@@ -2,8 +2,8 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn,
 export class RegisterFormBuilder {
   static registered(): FormGroup {
     return new FormGroup({
-      name: new FormControl('', Validators.required),
-      surname: new FormControl('', Validators.required),
+      firstName: new FormControl('', Validators.required),
+      lastName: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required),
       confirmPassword: new FormControl('', Validators.required),

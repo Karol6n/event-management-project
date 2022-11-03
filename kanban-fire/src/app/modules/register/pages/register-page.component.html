@@ -2,14 +2,14 @@
   <h1>Zarejestruj się</h1>
   <form [formGroup]="newUser" (ngSubmit)="submit()">
     <mat-form-field>
-      <input matInput placeholder="Imię" formControlName="name" />
-      <mat-error *ngIf="name?.errors?.['required']">
+      <input matInput placeholder="Imię" formControlName="firstName" />
+      <mat-error *ngIf="firstName?.errors?.['required']">
         Imię jest wymagane
       </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Nazwisko" formControlName="surname" />
-      <mat-error *ngIf="surname?.errors?.['required']">
+      <input matInput placeholder="Nazwisko" formControlName="lastName" />
+      <mat-error *ngIf="lastName?.errors?.['required']">
         Nazwisko jest wymagane
       </mat-error>
     </mat-form-field>
@@ -38,7 +38,7 @@
       <input
         matInput
         type="password"
-        placeholder="Powtórz Hasło"
+        placeholder="Powtórz hasło"
         formControlName="confirmPassword"
       />
       <mat-error *ngIf="confirmPassword?.errors?.['required']">

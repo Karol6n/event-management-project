@@ -1,18 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/shared/auth.service';
+import { UsersService } from 'src/app/services/user-service/user.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
 
-  user$ = this.authService.currentUser$;
+  user$ = this.usersService.currentUserProfile$;
+  constructor(private usersService: UsersService) { }
 
-  constructor(private authService: AuthService) { }
-
-  ngOnInit(): void {
-  }
 
 }

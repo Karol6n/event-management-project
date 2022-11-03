@@ -3,7 +3,9 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { HotToastService } from '@ngneat/hot-toast';
-import { AuthService } from 'src/app/shared/auth.service';
+import { switchMap } from 'rxjs';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
+import { UsersService } from 'src/app/services/user-service/user.service';
 import { RegisterFormBuilder } from '../config/register-form.builder';
 
 @Component({
@@ -15,14 +17,14 @@ export class RegisterComponent {
   newUser = RegisterFormBuilder.registered();
   hide = true;
 
-  constructor(private authService : AuthService, private router: Router, private toast: HotToastService) { }
+  constructor(private authService : AuthService, private router: Router, private toast: HotToastService, private usersService: UsersService) { }
 
-  get name() {
-    return this.newUser.get('name');
+  get firstName() {
+    return this.newUser.get('firstName');
   }
 
-  get surname() {
-    return this.newUser.get('surname');
+  get lastName() {
+    return this.newUser.get('lastName');
   }
 
   get email() {
@@ -38,15 +40,18 @@ export class RegisterComponent {
   }
 
   submit() {
-    const { name, surname, email, password } = this.newUser.value;
+    const { firstName, lastName, email, password } = this.newUser.value;
 
-    if (!this.newUser.valid || !name || !surname || !password || !email) {
+    if (!this.newUser.valid || !firstName || !lastName || !password || !email) {
       return;
     }
 
     this.authService
-      .register(name, surname, email, password)
+      .register(firstName, lastName, email, password)
       .pipe(
+        switchMap(({ user: { uid } }) =>
+      this.usersService.addUser({ uid, email, firstName, lastName, displayName: firstName,  })
+    ),
         this.toast.observe({
           success: 'Rejestracja powiodła się!',
           loading: 'Trwa rejestracja...',

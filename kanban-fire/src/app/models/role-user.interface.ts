@@ -11,7 +11,6 @@ export interface User {
   lastName?: string;
   displayName?: string;
   phone?: string;
-  address?: string
+  address?: string;
   photoURL?: string;
-  roles: Roles;
 }
