@@ -11,6 +11,8 @@ import {
   redirectUnauthorizedTo,
 } from '@angular/fire/auth-guard';
 import { ProfileComponent } from './modules/profile/pages/profile.component';
+import { ForgotPasswordComponent } from './modules/forgot-password/pages/forgot-password-page.component';
+import { ResetPasswordComponent } from './modules/reset-password/pages/reset-password-page.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectLoggedInToDashboard = () => redirectLoggedInTo(['dashboard']);
@@ -41,6 +43,16 @@ const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
     ...canActivate(redirectUnauthorizedToLogin),
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent,
+    ...canActivate(redirectLoggedInToDashboard),
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent,
+    ...canActivate(redirectLoggedInToDashboard),
   },
 ];
 

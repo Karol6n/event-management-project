@@ -1,46 +1,4 @@
 @import './src/assets/variable/variable';
 
-.header {
-  position: relative;
-  height: 100%;
-  min-height: 600px;
-  text-align: center;
-  color: $white;
-  background-image: url(../../../assets/imgs/header.jpg);
-  background-size: cover;
-  background-position: center;
-  transition: .2s;
-  transition-timing-function: linear;
 
-
-  .overlay {
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 100%;
-      width: 100%;
-      background-image: radial-gradient(140% 110% at 48% 42%,rgba($dark-theme-color, .50),rgba($dark-theme-color, .60),rgba($dark-theme-color, .70),rgba($dark-theme-color, .80),rgba($dark-theme-color, .93),$dark-theme-color 55%,$dark-theme-color 200%,);
-  }
-
-  .header-content {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      -webkit-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
-
-
-      .header-title {
-          font-size: calc(25px + (50 - 25) * ((100vw - 300px) / (1300 - 300)));
-          margin-top: 15px;
-          margin-bottom: 30px;
-          font-weight: bold;
-      }
-
-      .header-subtitle {
-          opacity: 1;
-          margin-bottom: 30px;
-      }
-    }
-  }
 

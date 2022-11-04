@@ -17,6 +17,9 @@ import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { ProfileComponent } from './modules/profile/pages/profile.component';
+import { LandingComponent } from './modules/landing/landing.component';
+import { ForgotPasswordComponent } from './modules/forgot-password/pages/forgot-password-page.component';
+import { ResetPasswordComponent } from './modules/reset-password/pages/reset-password-page.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,10 @@ import { ProfileComponent } from './modules/profile/pages/profile.component';
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
-    ProfileComponent
+    ProfileComponent,
+    LandingComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,
