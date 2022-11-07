@@ -13,6 +13,10 @@ import {
 import { ProfileComponent } from './modules/profile/pages/profile.component';
 import { ForgotPasswordComponent } from './modules/forgot-password/pages/forgot-password-page.component';
 import { ResetPasswordComponent } from './modules/reset-password/pages/reset-password-page.component';
+import { EventsListComponent } from './modules/events/pages/events-list-page/events-list-page.component';
+import { EventsAddComponent } from './modules/events/pages/events-add-page/events-add-page.component';
+import { EventsDetailViewComponent } from './modules/events/pages/events-details-view-page/events-details-view-page.component';
+import { EventsEditComponent } from './modules/events/pages/events-edit-page/events-edit-page.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectLoggedInToDashboard = () => redirectLoggedInTo(['dashboard']);
@@ -54,6 +58,24 @@ const routes: Routes = [
     component: ResetPasswordComponent,
     ...canActivate(redirectLoggedInToDashboard),
   },
+  {
+    path: 'events',
+    component: EventsListComponent,
+    children: [
+      {
+        path: 'add',
+        component: EventsAddComponent,
+      },
+      {
+        path: ':id',
+        component: EventsDetailViewComponent,
+      },
+      {
+        path: 'edit/:id',
+        component: EventsEditComponent,
+      }
+    ]
+  }
 ];
 
 @NgModule({
