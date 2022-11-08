@@ -22,17 +22,17 @@ export class EventsListComponent implements OnInit {
 
    getAllEvents() {
 
-    this.dataService.getAllEvents().subscribe(res => {
-
+    this.dataService.getAllEvents()
+    .subscribe({
+      next: (res) =>
       this.eventsList = res.map((e: any) => {
-        const data = e.payload.doc.data();
-        data.id = e.payload.doc.id;
-        return data;
-      })
-
-    }, err => {
-      alert('Error while fetching student data');
-    })
-
+      const data = e.payload.doc.data();
+      data.id = e.payload.doc.id;
+      return data;
+      }),
+      error: (err) => {
+      alert('Error while fetching student data')
+      }
+    });
   }
 }

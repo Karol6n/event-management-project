@@ -1,0 +1,39 @@
+<div class="event-container mat-elevation-z5">
+  <h1>Dodaj nowe wydarzenie</h1>
+  <form [formGroup]="events" (ngSubmit)="submit()">
+    <mat-form-field>
+      <mat-label>Nazwa wydarzenia</mat-label>
+        <input
+         matInput
+         placeholder="Np. Bal u Rafała"
+         formControlName="name"
+         autocomplete="off"
+         />
+        <mat-error *ngIf="events.get('name')?.errors?.['required']">
+          Nazwa wydarzenia jest wymagana
+        </mat-error>
+    </mat-form-field>
+    <table class="full-width">
+      <tr>
+        <td class="cat">
+          <mat-form-field>
+            <mat-label>Kategoria</mat-label>
+            <mat-select formControlName="category" multiple>
+              <mat-option *ngFor="let category of categoryList" [value]="category">{{ category }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="events.get('category')?.errors?.['required']">
+              Wybierz co najmniej jedną kategorię
+            </mat-error>
+            <mat-hint>Możesz wybrać więcej niż jedną kategorię</mat-hint>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <mat-label>Long Last Name That Will Be Truncated</mat-label>
+            <input matInput>
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>

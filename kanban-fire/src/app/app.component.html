@@ -1,6 +1,11 @@
 <mat-toolbar color="primary">
-  Event management app
+  <a mat-button class="link" routerLink="/dashboard">Event management app</a>
   <ng-container *ngIf="user$ | async as user; else loginButton">
+    <a mat-button class="link" routerLink="/events/add">Dodaj wydarzenie</a>
+    <a mat-button class="link" routerLink="/dashboard">Znajdź wydarzenie</a>
+    <a mat-button class="link" routerLink="/dashboard">Historia wydarzeń</a>
+    <a mat-button class="link" routerLink="/dashboard">Kalendarz</a>
+    <a mat-button class="link" routerLink="/dashboard">Kontakt</a>
     <button mat-button [matMenuTriggerFor]="userMenu">
       <img
         width="30"

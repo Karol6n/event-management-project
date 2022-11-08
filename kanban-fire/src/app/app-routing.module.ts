@@ -61,20 +61,22 @@ const routes: Routes = [
   {
     path: 'events',
     component: EventsListComponent,
-    children: [
-      {
-        path: 'add',
-        component: EventsAddComponent,
-      },
-      {
-        path: ':id',
-        component: EventsDetailViewComponent,
-      },
-      {
-        path: 'edit/:id',
-        component: EventsEditComponent,
-      }
-    ]
+    ...canActivate(redirectUnauthorizedToLogin),
+  },
+  {
+    path: 'events/add',
+    component: EventsAddComponent,
+    ...canActivate(redirectUnauthorizedToLogin),
+  },
+  {
+    path: 'events/:id',
+    component: EventsDetailViewComponent,
+    ...canActivate(redirectUnauthorizedToLogin),
+  },
+  {
+    path: 'events/edit/:id',
+    component: EventsEditComponent,
+    ...canActivate(redirectUnauthorizedToLogin),
   }
 ];
 
