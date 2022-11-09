@@ -1,0 +1,51 @@
+<div class="form-container mat-elevation-z5">
+  <h1>Masz problem? Skontaktuj się z nami!</h1>
+  <form [formGroup]="contact">
+    <mat-form-field>
+      <mat-label>Imię i nazwisko</mat-label>
+        <input
+         matInput
+         type="text"
+         formControlName="fullname"
+         name="fullname"
+         placeholder="np. Jan Kowalski"
+        />
+        <mat-error *ngIf="contact.get('fullname')?.errors?.['required']">
+          Podaj imię i nazwisko
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Adres e-mail</mat-label>
+        <input
+         matInput
+         type="email"
+         formControlName="email"
+         name="email"
+         placeholder="np. jan.kowalski@gmail.com"
+        />
+        <mat-error *ngIf="contact.get('email')?.errors?.['required']">
+          Adres e-mail jest wymagany!
+        </mat-error>
+        <mat-error *ngIf="contact.get('email')?.errors?.['email']">
+          Wprowadź poprawny adres e-mail
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Opisz problem</mat-label>
+        <textarea
+         matInput
+         name="message"
+         formControlName="message"
+         placeholder="Opisz swój problem tutaj">
+        </textarea>
+        <mat-error *ngIf="contact.get('message')?.errors?.['required']">
+          Opisz błąd
+        </mat-error>
+    </mat-form-field>
+    <div class="center">
+      <button mat-raised-button color="primary" (click)="submit(contact.value)">
+        Wyślij zgłoszenie
+      </button>
+    </div>
+  </form>
+</div>

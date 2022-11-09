@@ -17,6 +17,7 @@ import { EventsListComponent } from './modules/events/pages/events-list-page/eve
 import { EventsAddComponent } from './modules/events/pages/events-add-page/events-add-page.component';
 import { EventsDetailViewComponent } from './modules/events/pages/events-details-view-page/events-details-view-page.component';
 import { EventsEditComponent } from './modules/events/pages/events-edit-page/events-edit-page.component';
+import { ContactComponent } from './modules/contact/pages/contact-page.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectLoggedInToDashboard = () => redirectLoggedInTo(['dashboard']);
@@ -27,6 +28,7 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     component: LandingComponent,
+    ...canActivate(redirectLoggedInToDashboard),
   },
   {
     path: 'login',
@@ -77,6 +79,10 @@ const routes: Routes = [
     path: 'events/edit/:id',
     component: EventsEditComponent,
     ...canActivate(redirectUnauthorizedToLogin),
+  },
+  {
+    path: 'contact',
+    component: ContactComponent,
   }
 ];
 

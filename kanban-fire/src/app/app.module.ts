@@ -24,6 +24,8 @@ import { EventsAddComponent } from './modules/events/pages/events-add-page/event
 import { EventsDetailViewComponent } from './modules/events/pages/events-details-view-page/events-details-view-page.component';
 import { EventsEditComponent } from './modules/events/pages/events-edit-page/events-edit-page.component';
 import { EventsListComponent } from './modules/events/pages/events-list-page/events-list-page.component';
+import { ContactComponent } from './modules/contact/pages/contact-page.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import { EventsListComponent } from './modules/events/pages/events-list-page/eve
     EventsDetailViewComponent,
     EventsEditComponent,
     EventsListComponent,
+    ContactComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +50,7 @@ import { EventsListComponent } from './modules/events/pages/events-list-page/eve
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    GoogleMapsModule,
     AngularFireModule.initializeApp(environment.firebase),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
