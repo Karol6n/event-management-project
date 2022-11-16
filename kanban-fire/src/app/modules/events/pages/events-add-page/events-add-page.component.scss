@@ -48,4 +48,20 @@ table {
 }
 .cat {
   padding-right: 10px;
+  width: 40%;
 }
+.cat-map {
+  display: flex;
+  justify-content: space-between;
+}
+.search-box {
+  width: 60%;
+}
+
+.display-area {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  justify-content: end;
+}
+

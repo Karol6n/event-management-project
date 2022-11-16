@@ -26,6 +26,10 @@ import { EventsEditComponent } from './modules/events/pages/events-edit-page/eve
 import { EventsListComponent } from './modules/events/pages/events-list-page/events-list-page.component';
 import { ContactComponent } from './modules/contact/pages/contact-page.component';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { MapAddAddressComponent } from './modules/events/components/address-search-map.component';
+import { PlaceAutocompleteComponent } from './modules/events/components/place-autocomplete.component';
+import { MapDisplayComponent } from './modules/events/components/map-display.component';
+
 
 @NgModule({
   declarations: [
@@ -42,6 +46,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
     EventsEditComponent,
     EventsListComponent,
     ContactComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -58,6 +63,10 @@ import { GoogleMapsModule } from '@angular/google-maps';
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
     HotToastModule.forRoot(),
+    MapAddAddressComponent,
+    PlaceAutocompleteComponent,
+    MapDisplayComponent,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

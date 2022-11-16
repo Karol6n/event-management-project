@@ -14,7 +14,7 @@
         </mat-error>
     </mat-form-field>
     <table class="full-width">
-      <tr>
+      <tr class="cat-map">
         <td class="cat">
           <mat-form-field>
             <mat-label>Kategoria</mat-label>
@@ -27,11 +27,14 @@
             <mat-hint>Możesz wybrać więcej niż jedną kategorię</mat-hint>
           </mat-form-field>
         </td>
-        <td>
-          <mat-form-field>
-            <mat-label>Long Last Name That Will Be Truncated</mat-label>
-            <input matInput>
-          </mat-form-field>
+        <td class="search-box">
+            <app-place-autocomplete
+          (placeChanged)="locationValue = $event"
+          placeholder="Wpisz adres"
+        ></app-place-autocomplete>
+        <div class="display-area">
+          <app-map-display [mapLocation]="locationValue"></app-map-display>
+        </div>
         </td>
       </tr>
     </table>

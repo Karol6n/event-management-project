@@ -5,6 +5,8 @@ import { pipe } from 'rxjs';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { DataService } from 'src/app/services/data-service/data.service';
 import { EventsFormBuilder } from '../../config/events-form.builder';
+import { MapAddAddressComponent } from '../../components/address-search-map.component';
+import { PlaceSearchResult } from '../../components/place-autocomplete.component';
 
 @Component({
   selector: 'app-add',
@@ -13,8 +15,10 @@ import { EventsFormBuilder } from '../../config/events-form.builder';
 })
 
 export class EventsAddComponent {
+  locationValue: PlaceSearchResult = { address: ''};
   events = EventsFormBuilder.eventForm();
   categoryList: string[]=['Imprezy', 'Komedia', 'Sport']
+
 
   constructor(private authService: AuthService, private dataService: DataService, private router: Router, private toast: HotToastService) { }
 
