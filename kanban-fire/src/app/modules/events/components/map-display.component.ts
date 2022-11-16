@@ -12,7 +12,7 @@ import { PlaceSearchResult } from './place-autocomplete.component';
      #map
     [zoom]="zoom"
     width="50vw"
-    height="300px"
+    height="265px"
     [center]="center"
     [options]="options"
     >

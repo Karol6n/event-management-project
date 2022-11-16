@@ -1,4 +1,4 @@
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class EventsFormBuilder {
   static eventForm(): FormGroup {
     return new FormGroup({
@@ -9,10 +9,11 @@ export class EventsFormBuilder {
       description: new FormControl('', Validators.required),
       dateOfEvent: new FormControl('', Validators.required),
       hourOfEvent: new FormControl('', Validators.required),
-      numberOfGuests: new FormControl('', Validators.required),
+      numberOfGuests: new FormControl('', [Validators.required, Validators.min(1)]),
       freeOrPaid: new FormControl('', Validators.required),
-      costOfTicket: new FormControl(''),
+      costOfTicket: new FormControl('', Validators.min(1)),
       type: new FormControl(''),
+      dressCode: new FormControl(''),
     });
   }
 }

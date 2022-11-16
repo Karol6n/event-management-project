@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
-import { pipe } from 'rxjs';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { DataService } from 'src/app/services/data-service/data.service';
 import { EventsFormBuilder } from '../../config/events-form.builder';
-import { MapAddAddressComponent } from '../../components/address-search-map.component';
 import { PlaceSearchResult } from '../../components/place-autocomplete.component';
+
 
 @Component({
   selector: 'app-add',
@@ -18,6 +17,9 @@ export class EventsAddComponent {
   locationValue: PlaceSearchResult = { address: ''};
   events = EventsFormBuilder.eventForm();
   categoryList: string[]=['Imprezy', 'Komedia', 'Sport']
+  freeOrPaidList: string[]=['Płatne', 'Bezpłatne']
+  todayDate:Date = new Date()
+  selectedValue: string = '';
 
 
   constructor(private authService: AuthService, private dataService: DataService, private router: Router, private toast: HotToastService) { }

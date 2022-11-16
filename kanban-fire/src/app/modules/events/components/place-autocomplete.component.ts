@@ -75,11 +75,4 @@ export class PlaceAutocompleteComponent implements AfterViewInit {
       });
     });
   }
-
-
-  ngOnDestroy() {
-    if (this.autocomplete) {
-      google.maps.event.clearInstanceListeners(this.autocomplete);
-    }
-  }
 }

@@ -23,6 +23,10 @@ ngOnInit(): void {
 
 
   submit(value: any) {
+    const {fullname, email, message} = this.contact.value
+    if (!this.contact.valid || !fullname || !email || !message) {
+      return;
+    }
     this.myForm?.add(value).then(res=>{
 
         this.toast.success("Twoje zgłoszenie zostało wysłane, skontaktujemy się z tobą w ciągu 24 godzin")

@@ -11,5 +11,7 @@ export interface Event {
   freeOrPaid?: string,
   costOfTicket?: string,
   type?: string,
+  dressCode?: string,
+  creatorID?: string,
 
 }
