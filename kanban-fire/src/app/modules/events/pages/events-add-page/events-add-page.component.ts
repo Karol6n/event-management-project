@@ -5,6 +5,8 @@ import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { DataService } from 'src/app/services/data-service/data.service';
 import { EventsFormBuilder } from '../../config/events-form.builder';
 import { PlaceSearchResult } from '../../components/place-autocomplete.component';
+import { UsersService } from 'src/app/services/user-service/user.service';
+import { getAuth } from "firebase/auth";
 
 
 @Component({
@@ -15,23 +17,31 @@ import { PlaceSearchResult } from '../../components/place-autocomplete.component
 
 export class EventsAddComponent {
   locationValue: PlaceSearchResult = { address: ''};
-  events = EventsFormBuilder.eventForm();
+  newEvent = EventsFormBuilder.eventForm();
   categoryList: string[]=['Imprezy', 'Komedia', 'Sport']
-  freeOrPaidList: string[]=['Płatne', 'Bezpłatne']
-  todayDate:Date = new Date()
+  dressCodeList: string[]=['luźny', 'biznesowy', 'formalny', 'sportowy']
+  todayDate: Date = new Date()
   selectedValue: string = '';
+  auth = getAuth();
+  user = this.auth.currentUser;
 
-
-  constructor(private authService: AuthService, private dataService: DataService, private router: Router, private toast: HotToastService) { }
+  constructor(
+    private dataService: DataService,
+    private router: Router,
+    private toast: HotToastService,) {}
 
   submit() {
+    this.newEvent.value.location = this.locationValue.address;
+    const uid = this.user?.uid;
+    this.newEvent.value.uid = uid;
     this.dataService
-    .addEvent(this.events.value)
-      this.toast.observe({
-        success: 'Gratulacje, dodałeś nowe wydarzenie!',
-        loading: 'Trwa dodawanie wydarzenia',
-        error: ({ message }) => `${message}`,
-      });
-      this.router.navigate(['/events']);
-  }
+    .addEvent(this.newEvent.value).then(res=>{
+
+      this.toast.success("Gratulacje! Twoje wydarzenie zostało dodane")
+    })
+  .catch(err=>{
+    this.toast.error("Wystąpił błąd")
+  })
+  this.router.navigate(['/events']);
+}
 }

@@ -1,6 +1,6 @@
 <div class="event-container mat-elevation-z5">
   <h1>Dodaj nowe wydarzenie</h1>
-  <form [formGroup]="events" (ngSubmit)="submit()">
+  <form [formGroup]="newEvent" (ngSubmit)="submit()">
     <mat-form-field>
       <mat-label>Nazwa wydarzenia</mat-label>
         <input
@@ -9,7 +9,7 @@
          formControlName="name"
          autocomplete="off"
          />
-        <mat-error *ngIf="events.get('name')?.errors?.['required']">
+        <mat-error *ngIf="newEvent.get('name')?.errors?.['required']">
           Nazwa wydarzenia jest wymagana
         </mat-error>
     </mat-form-field>
@@ -21,7 +21,7 @@
             <mat-select formControlName="category" multiple>
               <mat-option *ngFor="let category of categoryList" [value]="category">{{ category }}</mat-option>
             </mat-select>
-            <mat-error *ngIf="events.get('category')?.errors?.['required']">
+            <mat-error *ngIf="newEvent.get('category')?.errors?.['required']">
               Wybierz co najmniej jedną kategorię
             </mat-error>
             <mat-hint>Możesz wybrać więcej niż jedną kategorię</mat-hint>
@@ -37,7 +37,7 @@
             placeholder="Wybierz datę rozpoczęcia wydarzenia"
             formControlName="dateOfEvent"
             />
-            <mat-error *ngIf="events.get('dateOfEvent')?.errors?.['required']">
+            <mat-error *ngIf="newEvent.get('dateOfEvent')?.errors?.['required']">
               Musisz podać datę swojego wydarzenia
             </mat-error>
             <mat-hint>DD/MM/YYYY</mat-hint>
@@ -51,7 +51,7 @@
             type="time"
             formControlName="hourOfEvent"
             />
-            <mat-error *ngIf="events.get('hourOfEvent')?.errors?.['required']">
+            <mat-error *ngIf="newEvent.get('hourOfEvent')?.errors?.['required']">
               Musisz podać godzinę rozpoczęcia swojego wydarzenia
             </mat-error>
             <mat-hint>HH/MM</mat-hint>
@@ -65,10 +65,10 @@
             autocomplete="off"
             formControlName="numberOfGuests"
             />
-            <mat-error *ngIf="events.get('numberOfGuests')?.errors?.['required']">
+            <mat-error *ngIf="newEvent.get('numberOfGuests')?.errors?.['required']">
               Podaj maksymalną liczbę uczestników wydarzenia
             </mat-error>
-            <mat-error *ngIf="events.get('numberOfGuests')?.errors?.['min']">
+            <mat-error *ngIf="newEvent.get('numberOfGuests')?.errors?.['min']">
               Liczba gości nie może być mniejsza lub równa 0
             </mat-error>
           </mat-form-field>
@@ -78,12 +78,12 @@
               <mat-option value="paid">Płatne</mat-option>
               <mat-option value="free">Bezpłatne</mat-option>
             </mat-select>
-            <mat-error *ngIf="events.get('freeOrPaid')?.errors?.['required']">
+            <mat-error *ngIf="newEvent.get('freeOrPaid')?.errors?.['required']">
               Wybierz formę wydarzenia
             </mat-error>
             <mat-hint>Możesz wybrać więcej tylko jedną formę</mat-hint>
           </mat-form-field>
-          <mat-form-field *ngIf="selectedValue === 'paid'">
+          <mat-form-field class="space-td" *ngIf="selectedValue === 'paid'">
             <mat-label>Cena biletu w zł</mat-label>
             <input
             matInput
@@ -92,9 +92,39 @@
             autocomplete="off"
             formControlName="costOfTicket"
             />
-            <mat-error *ngIf="events.get('costOfTicket')?.errors?.['min']">
+            <mat-error *ngIf="newEvent.get('costOfTicket')?.errors?.['min']">
               Cena biletu musi wynosić co najmniej 1 zł
             </mat-error>
+            <mat-error *ngIf="newEvent.get('costOfTicket')?.errors?.['required']">
+              Przy wydarzeniu płatnym cena biletu jest wymagana
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="space-td" *ngIf="selectedValue === 'paid'">
+            <mat-label>Strona gdzie można zakupić bilet</mat-label>
+            <input
+            matInput
+            autocomplete="off"
+            formControlName="linkToTicket"
+            placeholder="np. https://www.eventim.pl/"
+            />
+            <mat-error *ngIf="newEvent.get('linkToTicket')?.errors?.['required']">
+              Przy wydarzeniu płatnym link do strony z biletami jest wymagany
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="space-td">
+            <mat-label>Wybierz typ wydarzenia</mat-label>
+            <mat-select formControlName="typeOfEvent">
+              <mat-option value="openAir">Na świeżym powietrzu</mat-option>
+              <mat-option value="closed">W zamkniętym pomieszczeniu</mat-option>
+            </mat-select>
+            <mat-hint>Możesz wybrać więcej tylko jedną formę</mat-hint>
+          </mat-form-field>
+          <mat-form-field class="space-td">
+            <mat-label>Styl ubioru</mat-label>
+            <mat-select formControlName="dressCode" multiple>
+              <mat-option *ngFor="let dressCode of dressCodeList" [value]="dressCode">{{ dressCode }}</mat-option>
+            </mat-select>
+            <mat-hint>Możesz wybrać więcej niż jeden styl ubioru</mat-hint>
           </mat-form-field>
         </td>
         <td class="search-box">
@@ -103,11 +133,26 @@
           placeholder="Wpisz adres"
           >
           </app-place-autocomplete>
+
         <div class="display-area">
           <app-map-display [mapLocation]="locationValue"></app-map-display>
         </div>
         </td>
       </tr>
     </table>
+    <mat-form-field>
+      <mat-label>Opis wydarzenia</mat-label>
+        <textarea
+         matInput
+         formControlName="description"
+         placeholder="Opisz swoje wydarzenie">
+        </textarea>
+        <mat-error *ngIf="newEvent.get('description')?.errors?.['required']">
+          Opisz błąd
+        </mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">
+      Dodaj wydarzenie
+    </button>
   </form>
 </div>
