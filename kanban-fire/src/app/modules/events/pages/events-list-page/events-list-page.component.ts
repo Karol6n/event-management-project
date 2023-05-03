@@ -1,8 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { DataService} from 'src/app/services/data-service/data.service';
 import { EventsFormBuilder } from '../../config/events-form.builder';
-import { Event } from 'src/app/models/events.interface';
+import { RawEvent } from 'src/app/models/events.interface';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { HotToastService } from '@ngneat/hot-toast';
+import { Router } from '@angular/router';
+import { getAuth } from '@angular/fire/auth';
+import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
 @Component({
   selector: 'app-list',
   templateUrl: './events-list-page.component.html',
@@ -10,29 +15,139 @@ import { Event } from 'src/app/models/events.interface';
 })
 
 export class EventsListComponent implements OnInit {
-
-  eventsList: Event[] = [];
+  @ViewChild(GoogleMap, { static: false }) map: GoogleMap
+  @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
+  auth = getAuth();
+  eventsList: RawEvent[] = [];
   events = EventsFormBuilder.eventForm();
+  user = this.auth.currentUser;
+  userId = this.auth.currentUser?.uid;
+  selectedEvent = null;
+  searchLocation: string;
+  markerPositions: google.maps.LatLng[] = [];
+  zoom = 12;
+  center = {
+    lat: 49.816761,
+    lng: 19.044138,
+  };
+  options: google.maps.MapOptions = {
+    disableDefaultUI: true,
+    fullscreenControl: true,
+    zoomControl: true,
+  }
 
-  constructor(private authService: AuthService, private dataService: DataService) { }
+  constructor(private authService: AuthService, private dataService: DataService, private afs: AngularFirestore, private toast: HotToastService,  private router: Router) {}
+
 
   ngOnInit() {
     this.getAllEvents();
    }
 
-   getAllEvents() {
+   searchLocationOnMap() {
+    if (this.searchLocation) {
+      const geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ address: this.searchLocation }, (results, status) => {
+        if (status === google.maps.GeocoderStatus.OK) {
+          const latLng = {
+            lat: results[0].geometry.location.lat(),
+            lng: results[0].geometry.location.lng()
+          };
+          this.center = latLng;
+          this.markerPositions = [];
+        } else {
+          alert("Nie znaleziono tej lokalizacji");
+        }
+      });
+    } else {
+      alert("Wprowadź nazwę lub adres lokalizacji, którą chcesz znaleźć");
+    }
+  }
 
+   onMarkerClick(event, index) {
+    this.selectedEvent = this.eventsList[index];
+    }
+
+
+   getAllEvents() {
+    this.events.value.dateOfEvent = new Date()
     this.dataService.getAllEvents()
     .subscribe({
       next: (res) =>
       this.eventsList = res.map((e: any) => {
+      this.markerPositions = this.eventsList.map(event => new google.maps.LatLng(event.latitude, event.longitude));
       const data = e.payload.doc.data();
       data.id = e.payload.doc.id;
+
       return data;
       }),
       error: (err) => {
-      alert('Error while fetching student data')
+      alert('Wystąpił błąd, odśwież przeglądarkę')
       }
     });
   }
+
+  toggleJoinEvent(event: RawEvent) {
+    if (this.isUserJoined(event)) {
+      const index = event.guests.indexOf(this.user.uid);
+      if (index > -1) {
+        event.guests.splice(index, 1);
+      }
+      event.limit += 1;
+      this.updateEventLimit(event);
+    } else {
+      if (!event.guests) {
+        event.guests = [];
+      }
+      event.guests.push(this.user.uid);
+      event.limit -= 1;
+      this.updateEventLimit(event);
+    }
+  }
+
+
+  updateEventLimit(event: RawEvent) {
+    const newLimit = event.limit;
+    this.afs.collection("events").doc(event.id).update({guests: event.guests, limit: newLimit})
+      .then(() => {
+        if (this.isUserJoined(event)) {
+          this.toast.success("Dołączono do wydarzenia");
+        } else {
+          this.toast.error("Zrezygnowano z wydarzenia");
+        }
+      })
+      .catch((error) => {
+        this.toast.error("Nie udało się zmienić stanu udziału w wydarzeniu");
+      });
+  }
+
+
+  isUserJoined(event: RawEvent): boolean {
+    if (event.guests != null && this.user) {
+      return event.guests.includes(this.user.uid);
+    }
+    return false;
+  }
+
+  isEventFull(event: RawEvent): boolean {
+    if (event.guests) {
+      const numOfGuests = event.guests.length;
+      const maxNumOfGuests = parseInt(event.limit?.toString(), 10);
+      return numOfGuests >= maxNumOfGuests;
+    }
+    return false;
+  }
+
+  removeEvent(eventsList: RawEvent){
+    if(confirm("Czy na pewno chcesz usunąć " + eventsList.name)){
+      this.dataService.deleteEvent(eventsList).then(res=>{
+
+        this.toast.success("Twoje wydarzenie zostało usunięte")
+      })
+    .catch(err=>{
+      this.toast.error("Wystąpił błąd")
+    })
+    this.router.navigate(['/events']);
+    };
+  }
+
 }

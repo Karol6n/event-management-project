@@ -22,13 +22,15 @@ import { ForgotPasswordComponent } from './modules/forgot-password/pages/forgot-
 import { ResetPasswordComponent } from './modules/reset-password/pages/reset-password-page.component';
 import { EventsAddComponent } from './modules/events/pages/events-add-page/events-add-page.component';
 import { EventsDetailViewComponent } from './modules/events/pages/events-details-view-page/events-details-view-page.component';
-import { EventsEditComponent } from './modules/events/pages/events-edit-page/events-edit-page.component';
 import { EventsListComponent } from './modules/events/pages/events-list-page/events-list-page.component';
 import { ContactComponent } from './modules/contact/pages/contact-page.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { PlaceAutocompleteComponent } from './modules/events/components/place-autocomplete.component';
 import { MapDisplayComponent } from './modules/events/components/map-display.component';
-
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { AuthService } from './services/auth-service/auth.service';
+import { EmptyPipe } from './features/pipes/empty.pipe';
+import { subStatusPipe } from './features/pipes/free-paid.pipe';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,6 @@ import { MapDisplayComponent } from './modules/events/components/map-display.com
     ResetPasswordComponent,
     EventsAddComponent,
     EventsDetailViewComponent,
-    EventsEditComponent,
     EventsListComponent,
     ContactComponent,
 
@@ -64,9 +65,11 @@ import { MapDisplayComponent } from './modules/events/components/map-display.com
     HotToastModule.forRoot(),
     PlaceAutocompleteComponent,
     MapDisplayComponent,
-
+    HttpClientModule,
+    EmptyPipe,
+    subStatusPipe,
   ],
-  providers: [],
+  providers: [HttpClient, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

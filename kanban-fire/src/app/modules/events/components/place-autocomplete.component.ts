@@ -19,10 +19,15 @@ import {
 } from '@angular/forms';
 
 export interface PlaceSearchResult {
-  address: string;
+  address?: string;
   location?: google.maps.LatLng;
   iconUrl?: string;
   name?: string;
+}
+
+export interface LatLng {
+  lat: number;
+  lng: number;
 }
 
 @Component({
@@ -67,12 +72,14 @@ export class PlaceAutocompleteComponent implements AfterViewInit {
         const result: PlaceSearchResult = {
           address: this.inputField.nativeElement.value,
           name: place?.name,
-          location: place?.geometry?.location,
+          location: new google.maps.LatLng(place?.geometry?.location.lat(), place?.geometry?.location.lng()),
           iconUrl: place?.icon,
         };
 
         this.placeChanged.emit(result);
       });
     });
+
   }
+
 }

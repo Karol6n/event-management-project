@@ -1,17 +1,21 @@
-export interface Event {
-  eid: string,
+export interface RawEvent {
+  id: string,
   name?: string,
   category?: string,
   location?: string,
   description?: string,
-  dateOfEvent?: string,
+  dateOfEvent?: any,
   hourOfEvent?: string,
   photoURL?: string,
-  numberOfGuests?: string,
+  numberOfGuests?: number,
+  limit?: number,
+  latitude? : number,
+  longitude? : number,
   freeOrPaid?: string,
   costOfTicket?: string,
-  type?: string,
+  linkToTicket?: string,
+  typeOfEvent?: string,
   dressCode?: string,
-  creatorID?: string,
-
+  uid?: string,
+  guests: string[];
 }

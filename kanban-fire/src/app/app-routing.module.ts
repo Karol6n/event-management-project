@@ -16,7 +16,6 @@ import { ResetPasswordComponent } from './modules/reset-password/pages/reset-pas
 import { EventsListComponent } from './modules/events/pages/events-list-page/events-list-page.component';
 import { EventsAddComponent } from './modules/events/pages/events-add-page/events-add-page.component';
 import { EventsDetailViewComponent } from './modules/events/pages/events-details-view-page/events-details-view-page.component';
-import { EventsEditComponent } from './modules/events/pages/events-edit-page/events-edit-page.component';
 import { ContactComponent } from './modules/contact/pages/contact-page.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
@@ -73,11 +72,6 @@ const routes: Routes = [
   {
     path: 'events/:id',
     component: EventsDetailViewComponent,
-    ...canActivate(redirectUnauthorizedToLogin),
-  },
-  {
-    path: 'events/edit/:id',
-    component: EventsEditComponent,
     ...canActivate(redirectUnauthorizedToLogin),
   },
   {

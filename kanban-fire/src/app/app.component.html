@@ -2,7 +2,7 @@
   <a mat-button class="link" routerLink=''>Event management app</a>
   <ng-container *ngIf="user$ | async as user; else loginButton">
     <a mat-button class="link" routerLink="/events/add">Dodaj wydarzenie</a>
-    <a mat-button class="link" routerLink="/dashboard">Znajdź wydarzenie</a>
+    <a mat-button class="link" routerLink="/events">Znajdź wydarzenie</a>
     <a mat-button class="link" routerLink="/dashboard">Historia wydarzeń</a>
     <a mat-button class="link" routerLink="/dashboard">Kalendarz</a>
     <a mat-button class="link" routerLink="/contact">Kontakt</a>
@@ -11,7 +11,7 @@
         width="30"
         height="30"
         class="profile-image-toolbar"
-        [src]="user.photoURL ?? 'assets/imgs/image-placeholder.png'"
+        [src]="user?.photoURL || '/assets/imgs/image-placeholder.png'"
       />
       {{ user.displayName }}
       <mat-icon>expand_more</mat-icon>

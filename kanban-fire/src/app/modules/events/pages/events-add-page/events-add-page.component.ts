@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
-import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { DataService } from 'src/app/services/data-service/data.service';
 import { EventsFormBuilder } from '../../config/events-form.builder';
 import { PlaceSearchResult } from '../../components/place-autocomplete.component';
-import { UsersService } from 'src/app/services/user-service/user.service';
 import { getAuth } from "firebase/auth";
 
 
@@ -21,9 +19,10 @@ export class EventsAddComponent {
   categoryList: string[]=['Imprezy', 'Komedia', 'Sport']
   dressCodeList: string[]=['luźny', 'biznesowy', 'formalny', 'sportowy']
   todayDate: Date = new Date()
-  selectedValue: string = '';
+  selectedValue: string = 'free';
   auth = getAuth();
   user = this.auth.currentUser;
+
 
   constructor(
     private dataService: DataService,
@@ -32,6 +31,7 @@ export class EventsAddComponent {
 
   submit() {
     this.newEvent.value.location = this.locationValue.address;
+    this.newEvent.value.limit = this.newEvent.value.numberOfGuests;
     const uid = this.user?.uid;
     this.newEvent.value.uid = uid;
     this.dataService
@@ -44,4 +44,13 @@ export class EventsAddComponent {
   })
   this.router.navigate(['/events']);
 }
+
+onPlaceChanged(place: PlaceSearchResult) {
+  this.locationValue = place;
+  this.newEvent.patchValue({
+    latitude: place?.location?.lat(),
+    longitude: place?.location?.lng(),
+  });
+}
+
 }

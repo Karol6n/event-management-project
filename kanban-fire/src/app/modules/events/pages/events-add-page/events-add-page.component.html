@@ -95,7 +95,7 @@
             <mat-error *ngIf="newEvent.get('costOfTicket')?.errors?.['min']">
               Cena biletu musi wynosić co najmniej 1 zł
             </mat-error>
-            <mat-error *ngIf="newEvent.get('costOfTicket')?.errors?.['required']">
+            <mat-error *ngIf="newEvent.get('costOfTicket')?.errors">
               Przy wydarzeniu płatnym cena biletu jest wymagana
             </mat-error>
           </mat-form-field>
@@ -129,7 +129,7 @@
         </td>
         <td class="search-box">
           <app-place-autocomplete
-          (placeChanged)="locationValue = $event"
+          (placeChanged)="onPlaceChanged($event)"
           placeholder="Wpisz adres"
           >
           </app-place-autocomplete>
@@ -148,10 +148,10 @@
          placeholder="Opisz swoje wydarzenie">
         </textarea>
         <mat-error *ngIf="newEvent.get('description')?.errors?.['required']">
-          Opisz błąd
+          Opisz wydarzenie
         </mat-error>
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">
+    <button mat-raised-button color="primary" [disabled]="newEvent.invalid" type="submit">
       Dodaj wydarzenie
     </button>
   </form>
