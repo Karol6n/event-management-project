@@ -1,3 +1,5 @@
+import { User } from "./role-user.interface";
+
 export interface RawEvent {
   id: string,
   name?: string,
@@ -18,4 +20,5 @@ export interface RawEvent {
   dressCode?: string,
   uid?: string,
   guests: string[];
+  guestData?: User[];
 }

@@ -1,10 +1,12 @@
-<div class="map-container">
+<div class="button-container">
   <button mat-raised-button class="load-map-button" (click)="getAllEvents()">Wczytaj wydarzenia</button>
   <input class="search-location-input" matInput type="text" [(ngModel)]="searchLocation" placeholder="Szukaj lokalizacji">
   <button mat-raised-button class="search-button" (click)="searchLocationOnMap()">Szukaj</button>
+</div>
+<div class="map-container">
   <div *ngIf="selectedEvent" class="event-details">
-    <h3>Nazwa wydarzenia: {{ selectedEvent.name }}</h3>
-    <h2>Wydarzenie użytkownika: {{ selectedEvent.uid.firstName }}</h2>
+    <h1><strong>{{ selectedEvent.name }}</strong></h1>
+    <h2>Wydarzenie użytkownika: {{ selectedEvent.firstName }} {{ selectedEvent.lastName }}</h2>
     <p>Kategoria: {{ selectedEvent.category }}</p>
     <p>Data wydarzenia: {{ selectedEvent.dateOfEvent?.toDate() | date: 'dd.MM.YYYY' }}</p>
     <p>Godzina wydarzenia: {{ selectedEvent.hourOfEvent }}</p>
@@ -16,10 +18,12 @@
       <button *ngIf="userId !== selectedEvent.uid" type="button" class="btn btn-primary" [disabled]="isEventFull(selectedEvent) && !isUserJoined(selectedEvent)" (click)="toggleJoinEvent(selectedEvent)">
         {{ isUserJoined(selectedEvent) ? 'Zrezygnuj' : 'Dołącz' }}
       </button>
-      <span *ngIf="userId === selectedEvent.uid" (click)="removeEvent(selectedEvent)" class="btn btn-danger">Usuń</span>
+      <button type="button" *ngIf="userId === selectedEvent.uid" (click)="removeEvent(selectedEvent)" class="btn btn-danger">Usuń</button>
+      <button mat-raised-button color="primary" class="details-button" [routerLink]="['/events', selectedEvent.id]">Szczegóły</button>
     </td>
   </div>
 </div>
-<google-map #map [zoom]="zoom" width="70%" height="30vw" [center]="center" [options]="options">
+
+<google-map #map [zoom]="zoom" width="80%" height="30vw" [center]="center" [options]="options">
   <map-marker *ngFor="let markerPosition of markerPositions; let i = index" [position]="markerPosition" [attr.marker-index]="i" (mapClick)="onMarkerClick($event, i)"></map-marker>
 </google-map>

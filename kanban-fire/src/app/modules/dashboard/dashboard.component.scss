@@ -1,0 +1,32 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+
+  .datetime {
+    font-weight: bold;
+    font-size: 20px;
+    text-align: right;
+    margin-left: auto;
+  }
+
+  .date-time-text {
+    display: block;
+  }
+
+  .greeting {
+    text-align: left;
+    padding-top: 50px;
+  }
+
+  .user-name {
+    font-weight: bold;
+  }
+
+  .app-description {
+    margin-top: 10px;
+    font-size: 18px;
+    line-height: 1.5;
+    text-align: justify;
+  }
+}

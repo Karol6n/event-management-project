@@ -1,3 +1,6 @@
+@import './src/assets/variable/variable';
+
+
 #map-container {
   height: 100%;
   width: 100%;
@@ -27,12 +30,26 @@
 .map-container {
   display: flex;
   float: right;
-  max-width: 400px;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 20px;
+  max-width: 250px;
+  background-color: $blue-grey;
+  border-radius: 10px;
 }
 
 .event-details {
-padding-top: 100px;
+  color: white;
+  padding: 30px 15px;
+}
+
+
+.button-container {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 30px;
+  justify-content: space-between;
+  max-width: 80%;
+}
+
+.details-button {
+  margin-left: 20px;
+  height: 38px;
 }

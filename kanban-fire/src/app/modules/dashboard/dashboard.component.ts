@@ -7,9 +7,14 @@ import { UsersService } from 'src/app/services/user-service/user.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-
+  currentDate: string;
+  currentTime: string;
   user$ = this.usersService.currentUserProfile$;
-  constructor(private usersService: UsersService) { }
+  constructor(private usersService: UsersService) {
+    const now = new Date();
+    this.currentDate = now.toLocaleDateString();
+    this.currentTime = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
 
 
 }

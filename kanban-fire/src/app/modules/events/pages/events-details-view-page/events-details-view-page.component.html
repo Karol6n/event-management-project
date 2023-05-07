@@ -1,0 +1,20 @@
+<div class="event-container mat-elevation-z5">
+  <h1>{{ event?.name }}</h1>
+  <p>Data: {{ event?.dateOfEvent?.toDate() | date: 'dd.MM.YYYY' }}</p>
+  <p>Godzina: {{ event?.hourOfEvent }}</p>
+  <p>Lokalizacja: {{ event?.location }}</p>
+  <p>Liczba gości: {{ event?.numberOfGuests }}</p>
+  <p>Opis: {{ event?.description }}</p>
+  <p>Typ wydarzenia: {{ event?.typeOfEvent }}</p>
+  <p>Dress code: {{ event?.dressCode }}</p>
+  <h2>Goście:</h2>
+  <ng-container *ngIf="guests && guests.length; else empty">
+    <ul>
+      <li *ngFor="let guest of guests">
+        {{ guest.firstName }} {{ guest.lastName }}
+      </li>
+    </ul>
+    </ng-container>
+    <ng-template #empty>Niestety nikt nie dołączył jeszcze na to wydarzenie :(</ng-template>
+  <!-- itd. -->
+</div>

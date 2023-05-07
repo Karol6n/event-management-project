@@ -1,3 +1,11 @@
 <ng-container *ngIf="user$ | async as user">
-  <h1>Witaj, {{user.firstName}}!</h1>
+  <div class="header">
+    <div class="datetime">
+      <span class="date-time-text">{{ currentDate }} | {{ currentTime }}</span>
+    </div>
+    <div class="greeting">
+      <h1>Witaj, <span class="user-name">{{ user.firstName }}</span>!</h1>
+      <p class="app-description">Event Management App to idealne narzędzie dla każdego, kto chce zorganizować udane wydarzenie i nawiązać nowe kontakty. Dzięki naszej aplikacji możesz szybko i sprawnie zaplanować swoje wydarzenie, zyskując jednocześnie łatwy dostęp do niezbędnych informacji i narzędzi, które pozwolą Ci na perfekcyjną organizację.</p>
+    </div>
+  </div>
 </ng-container>

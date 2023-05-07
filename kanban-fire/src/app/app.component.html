@@ -3,8 +3,8 @@
   <ng-container *ngIf="user$ | async as user; else loginButton">
     <a mat-button class="link" routerLink="/events/add">Dodaj wydarzenie</a>
     <a mat-button class="link" routerLink="/events">Znajdź wydarzenie</a>
-    <a mat-button class="link" routerLink="/dashboard">Historia wydarzeń</a>
-    <a mat-button class="link" routerLink="/dashboard">Kalendarz</a>
+    <a mat-button class="link" routerLink="/dashboard">Historia twoich wydarzeń</a>
+    <a mat-button class="link" routerLink="/dashboard">Nadchodzące wydarzenia</a>
     <a mat-button class="link" routerLink="/contact">Kontakt</a>
     <button mat-button [matMenuTriggerFor]="userMenu">
       <img
