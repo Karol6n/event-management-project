@@ -3,7 +3,7 @@ import { User } from "./role-user.interface";
 export interface RawEvent {
   id: string,
   name?: string,
-  category?: string,
+  category?: string[],
   location?: string,
   description?: string,
   dateOfEvent?: any,
@@ -17,8 +17,7 @@ export interface RawEvent {
   costOfTicket?: string,
   linkToTicket?: string,
   typeOfEvent?: string,
-  dressCode?: string,
+  dressCode?: string[],
   uid?: string,
   guests: string[];
-  guestData?: User[];
 }

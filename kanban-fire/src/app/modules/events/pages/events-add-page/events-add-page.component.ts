@@ -16,8 +16,36 @@ import { getAuth } from "firebase/auth";
 export class EventsAddComponent {
   locationValue: PlaceSearchResult = { address: ''};
   newEvent = EventsFormBuilder.eventForm();
-  categoryList: string[]=['Imprezy', 'Komedia', 'Sport']
-  dressCodeList: string[]=['luźny', 'biznesowy', 'formalny', 'sportowy']
+  categoryList = [
+    'Dom i ogród',
+    'Fitness i trening',
+    'Gry',
+    'Imprezy',
+    'Komedia',
+    'Kwestie społeczne',
+    'Muzyka i dźwięk',
+    'Ogrodnictwo',
+    'Programy telewizyjne i filmy',
+    'Religie',
+    'Rękodzieło',
+    'Sport',
+    'Sztuki wizualne',
+    'Taniec',
+    'Teatr',
+    'Zakupy',
+    'Zdrowie i medycyna',
+    'Żywność'
+  ]
+  dressCodeList = [
+    'Biznesowy',
+    'Casual',
+    'Elegancki',
+    'Formalny',
+    'Luźny',
+    'Nieformalny',
+    'Smart casual',
+    'Sportowy',
+  ]
   todayDate: Date = new Date()
   selectedValue: string = 'free';
   auth = getAuth();

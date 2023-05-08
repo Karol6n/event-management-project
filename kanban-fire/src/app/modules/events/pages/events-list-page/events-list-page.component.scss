@@ -14,17 +14,9 @@
   padding: 10px;
 }
 
-.load-map-button {
-  width: 200px;
-}
-
 .search-location-input {
-  width: 200px;
+  width: 400px;
   height: 40px;
-}
-
-.search-button {
-  width: 200px;
 }
 
 .map-container {
@@ -38,6 +30,7 @@
 .event-details {
   color: white;
   padding: 30px 15px;
+  max-width: 250px;
 }
 
 
@@ -45,7 +38,6 @@
   display: flex;
   gap: 20px;
   padding-bottom: 30px;
-  justify-content: space-between;
   max-width: 80%;
 }
 

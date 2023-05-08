@@ -140,10 +140,8 @@ export class EventsListComponent implements OnInit {
   }
 
   isEventFull(event: RawEvent): boolean {
-    if (event.guests) {
-      const numOfGuests = event.guests.length;
-      const maxNumOfGuests = parseInt(event.limit?.toString(), 10);
-      return numOfGuests >= maxNumOfGuests;
+    if (event.limit <= 0) {
+      return true;
     }
     return false;
   }

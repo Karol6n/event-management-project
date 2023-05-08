@@ -17,6 +17,8 @@ import { EventsListComponent } from './modules/events/pages/events-list-page/eve
 import { EventsAddComponent } from './modules/events/pages/events-add-page/events-add-page.component';
 import { EventsDetailViewComponent } from './modules/events/pages/events-details-view-page/events-details-view-page.component';
 import { ContactComponent } from './modules/contact/pages/contact-page.component';
+import { EventsPastListPageComponent } from './modules/events/pages/events-past-list-page/events-past-list-page.component';
+import { EventsFutureListPageComponent } from './modules/events/pages/events-future-list-page/events-future-list-page.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectLoggedInToDashboard = () => redirectLoggedInTo(['dashboard']);
@@ -72,6 +74,16 @@ const routes: Routes = [
   {
     path: 'events/:id',
     component: EventsDetailViewComponent,
+    ...canActivate(redirectUnauthorizedToLogin),
+  },
+  {
+    path: 'events/past/list',
+    component: EventsPastListPageComponent,
+    ...canActivate(redirectUnauthorizedToLogin),
+  },
+  {
+    path: 'events/future/list',
+    component: EventsFutureListPageComponent,
     ...canActivate(redirectUnauthorizedToLogin),
   },
   {

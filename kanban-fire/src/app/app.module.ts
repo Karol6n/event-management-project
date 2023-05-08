@@ -31,6 +31,9 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AuthService } from './services/auth-service/auth.service';
 import { EmptyPipe } from './features/pipes/empty.pipe';
 import { subStatusPipe } from './features/pipes/free-paid.pipe';
+import { eventTypePipe } from './features/pipes/type-of-event.pipe';
+import { EventsPastListPageComponent } from './modules/events/pages/events-past-list-page/events-past-list-page.component';
+import { EventsFutureListPageComponent } from './modules/events/pages/events-future-list-page/events-future-list-page.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +47,8 @@ import { subStatusPipe } from './features/pipes/free-paid.pipe';
     ResetPasswordComponent,
     EventsAddComponent,
     EventsDetailViewComponent,
+    EventsPastListPageComponent,
+    EventsFutureListPageComponent,
     EventsListComponent,
     ContactComponent,
 
@@ -68,6 +73,7 @@ import { subStatusPipe } from './features/pipes/free-paid.pipe';
     HttpClientModule,
     EmptyPipe,
     subStatusPipe,
+    eventTypePipe,
   ],
   providers: [HttpClient, AuthService],
   bootstrap: [AppComponent]

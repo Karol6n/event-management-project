@@ -10,6 +10,15 @@ h1 {
 
 }
 
+.event-date-time {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  padding-bottom: 30px;
+}
+
 .event-container {
   display: block;
   margin: auto;
@@ -21,4 +30,36 @@ h1 {
 
 .event-container mat-form-field {
   width: 100%
+}
+mat-icon {
+  margin-right: 10px;
+}
+
+.event-date {
+  padding-top: 15px;
+}
+
+.description-card {
+  width: 100%;
+  background: $dark-card-background;
+  border-radius: 16px;
+}
+
+.guests-card {
+  width: 50%;
+  background: $dark-card-background;
+  border-radius: 16px;
+  margin-bottom: 30px;
+}
+
+.event-info-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+img {
+  border-radius: 100%;
+  object-fit: cover;
+  object-position: center;
+  margin-top: 5px;
 }

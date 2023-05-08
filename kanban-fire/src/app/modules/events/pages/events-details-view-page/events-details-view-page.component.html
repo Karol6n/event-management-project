@@ -1,20 +1,46 @@
 <div class="event-container mat-elevation-z5">
   <h1>{{ event?.name }}</h1>
-  <p>Data: {{ event?.dateOfEvent?.toDate() | date: 'dd.MM.YYYY' }}</p>
-  <p>Godzina: {{ event?.hourOfEvent }}</p>
-  <p>Lokalizacja: {{ event?.location }}</p>
-  <p>Liczba gości: {{ event?.numberOfGuests }}</p>
-  <p>Opis: {{ event?.description }}</p>
-  <p>Typ wydarzenia: {{ event?.typeOfEvent }}</p>
-  <p>Dress code: {{ event?.dressCode }}</p>
-  <h2>Goście:</h2>
-  <ng-container *ngIf="guests && guests.length; else empty">
-    <ul>
-      <li *ngFor="let guest of guests">
-        {{ guest.firstName }} {{ guest.lastName }}
-      </li>
-    </ul>
-    </ng-container>
-    <ng-template #empty>Niestety nikt nie dołączył jeszcze na to wydarzenie :(</ng-template>
-  <!-- itd. -->
+  <div class="event-date-time">
+    <mat-icon>calendar_today</mat-icon>
+    <p class="event-date">{{ event?.dateOfEvent?.toDate() | date: 'dd.MM.YYYY' }} {{ event?.hourOfEvent }}</p>
+  </div>
+  <div class="event-info-container">
+    <div class="event-info">
+      <p><mat-icon>location_on</mat-icon><strong>{{ event?.location }}</strong></p>
+      <p><mat-icon>people</mat-icon><strong>{{ event?.numberOfGuests }}</strong> Pozostało: <strong>{{ event?.limit }}</strong> miejsc</p>
+      <p><mat-icon>event_note</mat-icon><strong>{{ event?.category.join(', ') }}</strong></p>
+      <p *ngIf="event?.typeOfEvent"><mat-icon>event</mat-icon><strong>{{ event?.typeOfEvent | eventTypePipe }}</strong></p>
+      <p><mat-icon>money</mat-icon>Wydarzenie <strong>{{ event?.freeOrPaid | subStatusPipe }}</strong></p>
+      <ng-container *ngIf="event?.freeOrPaid === 'paid'">
+        <p><mat-icon> monetization_on</mat-icon>Cena {{ event?.costOfTicket }}zł. Bilet można zakupić na stronie {{ event?.linkToTicket }}</p>
+      </ng-container>
+      <p *ngIf="event?.dressCode"><mat-icon>checkroom</mat-icon><strong>{{ event?.dressCode.join(', ') }}</strong></p>
+    </div>
+    <mat-card class="guests-card">
+      <mat-card-header>
+        <mat-card-title>Lista gości</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <ng-container *ngIf="guests$ | async as guests; else empty">
+            <p *ngFor="let guest of guests">
+              <img
+                width="30"
+                height="30"
+                class="profile-image-toolbar"
+                [src]="guest?.photoURL || '/assets/imgs/image-placeholder.png'"/>
+                {{ guest.firstName }} {{ guest.lastName }}, {{ guest.email }}
+            </p>
+        </ng-container>
+        <ng-template #empty>Niestety nikt nie dołączył jeszcze na to wydarzenie :(</ng-template>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <mat-card class="description-card">
+    <mat-card-header>
+      <mat-card-title>Opis</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      {{ event?.description }}
+    </mat-card-content>
+  </mat-card>
 </div>
